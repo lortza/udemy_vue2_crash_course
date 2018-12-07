@@ -10,3 +10,7 @@ This app has a few different components and takes advantage of the "template", "
 
 * validation via [VeeValidate](https://baianat.github.io/vee-validate/)
 * animations [Animate.css](https://daneden.github.io/animate.css/)
+* forms
+* pages with routes
+* add/remove items from list dynamically
+* lists do not persist in any sort of caching or db
