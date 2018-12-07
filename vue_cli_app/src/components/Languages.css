@@ -1,0 +1,53 @@
+.yellowey {
+  background-color: #FFC300;
+  font-weight: bold;
+  color: white;
+  text-shadow: 3px 3px 4px #FF5733;
+  width: 100%;
+  padding: 10px 0px;
+}
+.notice {
+  background-color: teal;
+  font-weight: bold;
+  color: white;
+  text-shadow: 3px 3px 4px #033B38;
+  width: 100%;
+  padding: 10px 0px;
+}
+.alert {
+  background-color: #C70039;
+  font-weight: bold;
+  color: white;
+  text-shadow: 3px 3px 4px #581845;
+  width: 100%;
+  padding: 10px 0px;
+}
+/* don't do this content thing below */
+.notice:before {
+  content: 'Great Job!'
+}
+.alert:before {
+  content: 'Holy smokes! Alert! Alert!'
+}
+
+.holder {
+  border: 1px solid #C70039;
+  border-radius: 15px;
+  margin: 10px 0px;
+  background-color: white;
+  padding: 10px 0px;
+  text-align: center;
+}
+
+h2 {
+  color: #C70039;
+}
+
+ul {
+  text-align: left;
+  width: 40%;
+  margin: 0 auto;
+}
+li {
+  margin: 0 10px;
+}
