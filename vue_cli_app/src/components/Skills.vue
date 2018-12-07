@@ -15,7 +15,10 @@
       <p>{{ newSkill }}</p>
       <ul>
         <transition-group name="skillsList" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
-          <li v-for="(item, index) in skills" :key='index'>{{ item.name }} (level: {{ item.level }})</li>
+          <li v-for="(item, index) in skills" :key='index'>
+            {{ item.name }} (level: {{ item.level }})
+            <i class="fa fa-minus-circle" v-on:click="removeSkill(index)"></i>
+          </li>
         </transition-group>
       </ul>
 
@@ -53,6 +56,9 @@ export default {
         //   console.log('Not valid');
         }
       });
+    },
+    removeSkill(id){
+      this.skills.splice(id,1);
     }
   }
 }//export
@@ -78,6 +84,11 @@ export default {
     border-left: 5px solid #3EB3F6;
     margin-bottom: 2px;
     color: #3e5252;
+  }
+
+  ul li i {
+    float: right;
+    cursor: pointer;
   }
 
   p {
