@@ -2,13 +2,21 @@
   <div class="hello">
     <div class="holder">
       <form @submit.prevent="addSkill">
-        <input type="text" placeholder="Enter a skill you have" v-model="newSkill" v-validate="'min: 5'" name="newSkill" >
+        <input type="text" placeholder="Enter a skill you have" v-model="newSkill" v-validate="'min:5'" name="skillInput" >
+
+        <transition enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
+        <!-- <transition name="alert-in"> -->
+          <p class="alert" v-if="errors.has('skillInput')">{{ errors.first('skillInput') }}</p>
+        </transition>
+
         <input type="checkbox" id="checkbox" v-model="checked">
         character count: {{ newSkill.length }}
       </form>
       <p>{{ newSkill }}</p>
       <ul>
-        <li v-for="(item, index) in skills" :key='index'>{{ item.name }} (level: {{ item.level }})</li>
+        <transition-group name="skillsList" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
+          <li v-for="(item, index) in skills" :key='index'>{{ item.name }} (level: {{ item.level }})</li>
+        </transition-group>
       </ul>
 
       <p v-if="skills.length >= 1">You have many skillz! Hooray!</p>
@@ -37,14 +45,22 @@ export default {
   },
   methods: {
     addSkill() {
-      this.skills.push({name: this.newSkill, level: 1});
-      this.newSkill = '';
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          this.skills.push({name: this.newSkill, level: 1});
+          this.newSkill = '';
+        // } else {
+        //   console.log('Not valid');
+        }
+      });
     }
   }
 }//export
 </script>
 
 <style scoped>
+  @import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css";
+
   .holder {
     background: #fff;
   }
@@ -75,12 +91,40 @@ export default {
   }
 
   input {
-    width: calc(100% - 40px);
+    width: 100%;
     border: 0;
     outline: 0;
     padding: 20px;
     font-size: 13.em;
     background-color: #323333;
     color: #687f7f;
+  }
+
+  .alert {
+    background-color: #C70039;
+    color: white;
+    width: 100%;
+    padding: 10px 0px;
+    border-radius: 0;
+  }
+
+  .alert-in-enter-active {
+    animation: bounce-in .5s;
+  }
+
+  .alert-in-leave-active {
+    animation: bounce-in .5s reverse;
+  }
+
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 </style>
